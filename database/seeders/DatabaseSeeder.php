@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\CurrencyRate;
 use App\Models\LedgerAccount;
 use App\Models\Product;
@@ -55,8 +56,11 @@ class DatabaseSeeder extends Seeder
             'bio' => 'Regular buyer account',
         ]);
 
+        $category = Category::query()->firstOrCreate(['slug' => 'general'], ['name' => 'General']);
+
         Product::query()->create([
             'vendor_id' => $vendor->id,
+            'category_id' => $category->id,
             'name' => 'Demo Product',
             'slug' => 'demo-product',
             'description' => 'A seeded product.',

@@ -86,3 +86,9 @@ paths:
       summary: Vendor user area
       responses:
         '200': { description: OK }
+
+  /marketplace:
+    get:
+      summary: JavaScript-free marketplace listing page with search/category/sort
+      responses:
+        '200': { description: OK }

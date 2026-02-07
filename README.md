@@ -33,6 +33,10 @@ docker compose up -d
 - Includes products, ratings, favorites, shipping methods, checkout, messages, reports, disputes, escrow release, profile, block endpoints, and admin rate sync endpoint (`POST /api/v1/rates/sync`).
 - OpenAPI spec: `docs/openapi.yaml`
 
+## UI
+- JavaScript-free web UI with black-and-white theme.
+- Marketplace browse page with server-rendered search, category filter, and sorting at `/marketplace`.
+
 ## User areas
 - Buyer area: `/buyer/area` (auth required).
 - Vendor area: `/vendor/area` (auth required).
