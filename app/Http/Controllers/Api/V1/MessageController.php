@@ -12,17 +12,27 @@ use App\Models\Report;
 use App\Models\SubOrder;
 use App\Services\Messaging\BlockGuardService;
 use App\Services\Messaging\MessageModerationService;
+use App\Services\Security\PgpMessageEncryptionService;
 
 class MessageController extends Controller
 {
-    public function store(StoreMessageRequest $request, int $subOrderId, MessageModerationService $moderation, BlockGuardService $blocks)
-    {
+    public function store(
+        StoreMessageRequest $request,
+        int $subOrderId,
+        MessageModerationService $moderation,
+        BlockGuardService $blocks,
+        PgpMessageEncryptionService $pgp
+    ) {
         $subOrder = SubOrder::query()->findOrFail($subOrderId);
         $counterpartyId = $request->user()->id === $subOrder->vendor_id ? $subOrder->order->buyer_id : $subOrder->vendor_id;
 
         if ($blocks->blockedEitherWay($request->user()->id, $counterpartyId)) {
             return response()->json(['message' => 'Messaging unavailable due to user block.'], 403);
         }
+
+        $recipient = $request->user()->id === $subOrder->order->buyer_id
+            ? $subOrder->vendor
+            : $subOrder->order->buyer;
 
         $thread = ConversationThread::query()->firstOrCreate(['sub_order_id' => $subOrderId]);
         $body = $request->validated('body', '');
@@ -31,7 +41,10 @@ class MessageController extends Controller
         $message = Message::query()->create([
             'thread_id' => $thread->id,
             'sender_id' => $request->user()->id,
-            'body' => $body,
+            'recipient_id' => $recipient?->id,
+            'body' => null,
+            'encrypted_body' => $pgp->encryptForRecipient($body, $recipient),
+            'encryption_scheme' => 'pgp',
             'message_type' => $request->validated('message_type'),
             'is_flagged' => $flagged,
         ]);

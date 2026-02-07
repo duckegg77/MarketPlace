@@ -7,6 +7,7 @@
 - Malicious uploads: private storage, MIME/size validation, queued malware scan hooks.
 - Abuse/harassment: block system, report system, message moderation hooks, admin moderation queue.
 - PII compromise: encrypted payout details/addresses and data minimization.
+- Message confidentiality: users provide public PGP keys during registration, and direct order-thread messages are stored encrypted for recipients.
 
 ## Controls
 - Sanctum token auth for API with revocation support.

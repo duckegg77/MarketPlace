@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Auth\RegisterController;
 use App\Http\Controllers\Api\V1\BlockController;
 use App\Http\Controllers\Api\V1\CheckoutController;
 use App\Http\Controllers\Api\V1\DisputeController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Api\V1\ShippingMethodController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
+    Route::post('/auth/register', RegisterController::class);
     Route::get('/products', [ProductController::class, 'index']);
     Route::get('/shipping-methods', [ShippingMethodController::class, 'index']);
 

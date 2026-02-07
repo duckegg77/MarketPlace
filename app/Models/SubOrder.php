@@ -17,4 +17,9 @@ class SubOrder extends Model
     {
         return $this->belongsTo(Order::class);
     }
+
+    public function vendor()
+    {
+        return $this->belongsTo(User::class, 'vendor_id');
+    }
 }

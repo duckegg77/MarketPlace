@@ -28,9 +28,17 @@ docker compose up -d
 ```
 
 ## API
+- Secure registration endpoint: `POST /api/v1/auth/register` requires `username`, strong `password`, 6-digit `pin`, and `public_pgp_key`.
 - Base: `/api/v1`
 - Includes products, ratings, favorites, shipping methods, checkout, messages, reports, disputes, escrow release, profile, block endpoints, and admin rate sync endpoint (`POST /api/v1/rates/sync`).
 - OpenAPI spec: `docs/openapi.yaml`
+
+## User areas
+- Buyer area: `/buyer/area` (auth required).
+- Vendor area: `/vendor/area` (auth required).
+
+## Messaging encryption
+- Registration requires a public PGP key and messages are stored as encrypted payloads for recipients (`encrypted_body`, `encryption_scheme`).
 
 ## Pricing display
 Products are exposed with display prices in **USD, GBP, EUR, and XMR** from `currency_rates`, with live refresh from external FX/XMR sources every 30 minutes (or on-demand via admin sync endpoint).

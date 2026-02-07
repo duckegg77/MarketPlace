@@ -17,15 +17,21 @@ class DatabaseSeeder extends Seeder
     {
         User::query()->create([
             'name' => 'Admin',
+            'username' => 'admin',
             'email' => 'admin@marketplace.local',
             'password' => Hash::make('password'),
+            'pin_hash' => Hash::make('111111'),
+            'public_pgp_key' => '-----BEGIN PGP PUBLIC KEY BLOCK-----\nADMIN-DEMO-KEY\n-----END PGP PUBLIC KEY BLOCK-----',
             'role' => 'admin',
         ]);
 
         $vendor = User::query()->create([
             'name' => 'Vendor',
+            'username' => 'vendor',
             'email' => 'vendor@marketplace.local',
             'password' => Hash::make('password'),
+            'pin_hash' => Hash::make('222222'),
+            'public_pgp_key' => '-----BEGIN PGP PUBLIC KEY BLOCK-----\nVENDOR-DEMO-KEY\n-----END PGP PUBLIC KEY BLOCK-----',
             'role' => 'vendor',
             'bio' => 'Trusted vendor profile bio',
         ]);
@@ -40,8 +46,11 @@ class DatabaseSeeder extends Seeder
 
         User::query()->create([
             'name' => 'Buyer',
+            'username' => 'buyer',
             'email' => 'buyer@marketplace.local',
             'password' => Hash::make('password'),
+            'pin_hash' => Hash::make('333333'),
+            'public_pgp_key' => '-----BEGIN PGP PUBLIC KEY BLOCK-----\nBUYER-DEMO-KEY\n-----END PGP PUBLIC KEY BLOCK-----',
             'role' => 'buyer',
             'bio' => 'Regular buyer account',
         ]);
