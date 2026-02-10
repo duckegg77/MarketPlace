@@ -1,0 +1,94 @@
+openapi: 3.0.3
+info:
+  title: Marketplace API
+  version: 1.1.0
+paths:
+  /api/v1/products:
+    get:
+      summary: List products with USD/GBP/EUR/XMR display pricing and ratings
+      responses:
+        '200': { description: OK }
+  /api/v1/products/{product}/ratings:
+    post:
+      summary: Rate a product (1-5 stars)
+      responses:
+        '201': { description: Created }
+  /api/v1/vendors/{vendor}/ratings:
+    post:
+      summary: Rate a vendor (1-5 stars)
+      responses:
+        '201': { description: Created }
+  /api/v1/favorites/toggle:
+    post:
+      summary: Toggle favorite product or vendor
+      responses:
+        '200': { description: Updated }
+  /api/v1/checkout:
+    post:
+      summary: Checkout with per-vendor shipping option selection and escrow capture
+      responses:
+        '201': { description: Created }
+  /api/v1/sub-orders/{subOrder}/messages:
+    post:
+      summary: Send buyer-vendor message
+      responses:
+        '201': { description: Created }
+  /api/v1/reports:
+    post:
+      summary: File abuse or trust-and-safety report
+      responses:
+        '201': { description: Created }
+  /api/v1/users/{user}/block:
+    post:
+      summary: Block a user
+      responses:
+        '201': { description: Created }
+    delete:
+      summary: Unblock a user
+      responses:
+        '204': { description: No Content }
+  /api/v1/disputes:
+    post:
+      summary: Open dispute
+      responses:
+        '201': { description: Created }
+  /api/v1/disputes/{dispute}/resolve:
+    patch:
+      summary: Admin/moderator resolves dispute
+      responses:
+        '200': { description: OK }
+  /api/v1/sub-orders/{subOrder}/release:
+    post:
+      summary: Buyer-triggered escrow release
+      responses:
+        '200': { description: OK }
+
+
+  /api/v1/rates/sync:
+    post:
+      summary: Admin sync of live USD/GBP/EUR/XMR rates from external providers
+      responses:
+        '200': { description: OK }
+
+  /api/v1/auth/register:
+    post:
+      summary: Register account with username, password, 6-digit PIN, and public PGP key
+      responses:
+        '201': { description: Created }
+
+  /buyer/area:
+    get:
+      summary: Buyer user area
+      responses:
+        '200': { description: OK }
+  /vendor/area:
+    get:
+      summary: Vendor user area
+      responses:
+        '200': { description: OK }
+
+  /marketplace:
+    get:
+      summary: JavaScript-free marketplace listing page with search/category/sort
+      responses:
+        '200': { description: OK }
